@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <div class="container login">
+      <div id="register">
+        <form id="registerForm">
+          <span id="errorMessage"></span>
+          <label for="email">E-mail:</label>
+          <input type="text" name="email" id="logInEmail" />
+          <label for="password">Jelszo:</label>
+          <input type="password" name="password" id="logInPassword" /><br />
+          <button id="logInButton" type="submit">Belepek</button>
+          <button id="toRegButton">
+            <a href="http://localhost:3000/register">Regisztralok</a>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/javascript/nav.js"></script>
+  </body>
+</html>

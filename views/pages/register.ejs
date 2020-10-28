@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <div class="container login">
+      <div id="register">
+        <form id="registerForm">
+          <span id="errorMessage"></span>
+          <label for="name">Nev:</label>
+          <input type="text" name="name" id="regName" />
+          <label for="email">E-mail:</label>
+          <input type="text" name="email" id="regEmail" />
+          <label for="password">Jelszo:</label>
+          <input type="password" name="password" id="regPassword" /><br />
+          <label for="password2">Jelszo ujra:</label>
+          <input type="password" name="password2" id="regPassword2" /><br />
+          <small>A jelszo minimum 6 karakter kell legyen</small><br />
+          <label for="address">Lakcim:</label>
+          <textarea
+            type="text"
+            name="address"
+            id="address"
+            rows="2"
+            cols="30"
+          ></textarea>
+
+          <button id="regButton" type="submit">Regisztralok</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/javascript/register.js"></script>
+    <script src="/javascript/nav.js"></script>
+  </body>
+</html>
