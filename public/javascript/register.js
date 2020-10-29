@@ -10,9 +10,9 @@ const users = [];
 
 class User {
   constructor(name, email, passWord, address) {
-    this.username = name;
+    this.name = name;
     this.email = email;
-    this.passWord = passWord;
+    this.password = passWord;
     this.address = address;
   }
 }
@@ -62,7 +62,26 @@ function emailIsValid(email) {
 }
 
 function saveUser(userToSave) {
-  users.push(userToSave);
+  fetch("http://localhost:3000/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: userToSave.name,
+      email: userToSave.email,
+      password: userToSave.password,
+      address: userToSave.address,
+    }),
+  })
+    .then((res) => {
+      res.json();
+      console.log(res);
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log(`ERROR: ${error}`));
+
+  //users.push(userToSave);
 }
 function isUserExist(userToCheck) {
   let emailToFind = userToCheck.email;
