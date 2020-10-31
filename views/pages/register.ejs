@@ -8,26 +8,36 @@
 
     <div class="container login">
       <div id="register">
-        <form id="registerForm">
+        <form id="registerForm" method="GET">
           <span id="errorMessage"></span>
-          <label for="name">Nev:</label>
-          <input type="text" name="name" id="regName" />
-          <label for="email">E-mail:</label>
-          <input type="text" name="email" id="regEmail" />
-          <label for="password">Jelszo:</label>
-          <input type="password" name="password" id="regPassword" /><br />
-          <label for="password2">Jelszo ujra:</label>
-          <input type="password" name="password2" id="regPassword2" /><br />
+          <label for="regName">Nev:</label>
+          <input type="text" name="name" id="regName" value="Marton Szabolcs" />
+          <label for="regEmail">E-mail:</label>
+          <input
+            type="text"
+            name="email"
+            id="regEmail"
+            value="makika@gmail.com"
+          />
+          <label for="regPassword">Jelszo:</label>
+          <input
+            type="password"
+            name="password"
+            id="regPassword"
+            value="111111"
+          /><br />
+          <label for="regPassword2">Jelszo ujra:</label>
+          <input
+            type="password"
+            name="password2"
+            id="regPassword2"
+            value="111111"
+          /><br />
           <small>A jelszo minimum 6 karakter kell legyen</small><br />
           <label for="address">Lakcim:</label>
-          <textarea
-            type="text"
-            name="address"
-            id="address"
-            rows="2"
-            cols="30"
-          ></textarea>
-
+          <textarea type="text" name="address" id="address" rows="2" cols="30">
+asdf ret</textarea
+          >
           <button id="regButton" type="submit">Regisztralok</button>
         </form>
       </div>

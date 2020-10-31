@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 const User = require("../model/User");
+const userSercices = require("../services/user/userSercices");
 
 router.get("/about", (req, res) => {
   res.render("pages/about");
@@ -23,18 +25,31 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const user = new User({
+  var userModel = {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    password2: req.body.password2,
     address: req.body.address,
-  });
-  try {
-    const savedUser = await user.save();
-    res.json(savedUser);
-  } catch (err) {
-    res.json({ message: err });
+  };
+  var createUserResult = await userSercices.createUser(userModel);
+  if (createUserResult == true) {
+    res.json({
+      message: "success",
+    });
+  } else {
+    res.json({
+      message: createUserResult,
+      failure: true,
+      errorType: "Internal Error",
+    });
   }
+});
+
+router.post("/register", userSercices.createUser);
+
+router.get("/admin", (req, res) => {
+  res.render("pages/admin");
 });
 
 router.get("/", (req, res) => {

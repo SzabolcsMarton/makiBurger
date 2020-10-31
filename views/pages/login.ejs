@@ -5,7 +5,11 @@
   </head>
   <body>
     <header><%- include('../partials/header'); %></header>
-
+    <!--<%
+if (window.location.href.indexOf('from=reg') > -1){
+  <span>You have received an email, please validate your email address by clicking on the link in the email</span>
+}
+%> -->
     <div class="container login">
       <div id="register">
         <form id="registerForm">
@@ -15,8 +19,11 @@
           <label for="password">Jelszo:</label>
           <input type="password" name="password" id="logInPassword" /><br />
           <button id="logInButton" type="submit">Belepek</button>
-          <button id="toRegButton">
-            <a href="http://localhost:3000/register">Regisztralok</a>
+          <button
+            id="toRegButton"
+            onclick="window.location.href='/register'; return false;"
+          >
+            Regisztralok
           </button>
         </form>
       </div>

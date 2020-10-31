@@ -6,13 +6,13 @@ const address = document.getElementById("address");
 const regButton = document.getElementById("regButton");
 const form = document.getElementById("registerForm");
 const errorMessage = document.getElementById("errorMessage");
-const users = [];
 
 class User {
-  constructor(name, email, passWord, address) {
+  constructor(name, email, passWord, passWord2, address) {
     this.name = name;
     this.email = email;
     this.password = passWord;
+    this.password2 = passWord2;
     this.address = address;
   }
 }
@@ -45,16 +45,19 @@ form.addEventListener("submit", (e) => {
     errorMessage.innerText = messages.join(" , ");
     return;
   } else {
-    let user = new User(name.value, email.value, passWord.value, address.value);
-    if (!isUserExist(user)) {
-      saveUser(user);
-      errorMessage.innerText = "";
-    } else {
-      console.log("Email is already exist");
-    }
+    let user = new User(
+      name.value,
+      email.value,
+      passWord.value,
+      passWord2.value,
+      address.value
+    );
+
+    saveUser(user);
+    errorMessage.innerText = "";
   }
 
-  console.log(users);
+  //console.log(users);
 });
 
 function emailIsValid(email) {
@@ -67,19 +70,24 @@ function saveUser(userToSave) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name: userToSave.name,
-      email: userToSave.email,
-      password: userToSave.password,
-      address: userToSave.address,
-    }),
+    body: JSON.stringify(userToSave),
   })
     .then((res) => {
-      res.json();
       console.log(res);
+      console.log("User created");
+      return res.json();
     })
-    .then((data) => console.log(data))
-    .catch((error) => console.log(`ERROR: ${error}`));
+    .then((data) => {
+      console.log(data);
+      if (data.failure) {
+        errorMessage.innerText = data.message;
+      } else {
+        window.location.href = "/login?from=registration";
+      }
+    })
+    .catch((error) => {
+      console.error(`ERROR: ${error}`);
+    });
 
   //users.push(userToSave);
 }

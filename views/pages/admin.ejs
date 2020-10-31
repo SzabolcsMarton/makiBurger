@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <div class="leiras">
+      <form id="newPizzaCreater">
+        <label for="newPizzaName">Pizza neve:</label>
+        <input type="text" name="newPizza" value="pizza" id="newPizzaName" />
+        <label for="newPizzaPrice">Pizza ar:</label>
+        <input
+          type="number"
+          name="newPizzaPrice"
+          value="123"
+          id="newPizzaPrice"
+        />
+        <label for="newPizzaDescript">Leiras:</label>
+        <textarea
+          type="text"
+          name="newPizzaDescription"
+          id="newPizzaDescript"
+          rows="2"
+          cols="30"
+        >
+fuydktdmhd  cjgrvgwgkvbrn ugcuwegiuwgiucg wuge 
+vhrfgwejj wfdgf
+      </textarea
+        >
+        <button id="createNewPizzaBtn" type="submit">Elkuld</button>
+      </form>
+    </div>
+    <script src="../../public/javascript/admin/admin.js"></script>
+    <script src="/javascript/nav.js"></script>
+  </body>
+</html>

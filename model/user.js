@@ -21,6 +21,10 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  emailValidationCode: {
+    type: String,
+    require: false,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

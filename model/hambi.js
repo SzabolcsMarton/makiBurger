@@ -5,12 +5,12 @@ const HambiSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  leiras: {
-    type: String,
-    require: true,
-  },
   ar: {
     type: Number,
+    require: true,
+  },
+  leiras: {
+    type: String,
     require: true,
   },
   date: {
