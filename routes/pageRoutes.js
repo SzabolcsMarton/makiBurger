@@ -3,13 +3,18 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../model/User");
 const userSercices = require("../services/user/userSercices");
+const hamburgerSercices = require("../services/hamburger/hamburgerService");
+const Hambi = require("../model/Hambi");
 
 router.get("/about", (req, res) => {
   res.render("pages/about");
 });
 
-router.get("/products", (req, res) => {
-  res.render("pages/products");
+router.get("/products", async (req, res) => {
+  let hamburgers = await hamburgerSercices.getAllBurgers();
+  res.render("pages/products", {
+    hamburgers: hamburgers,
+  });
 });
 
 router.get("/orders", (req, res) => {
@@ -33,23 +38,41 @@ router.post("/register", async (req, res) => {
     address: req.body.address,
   };
   var createUserResult = await userSercices.createUser(userModel);
-  if (createUserResult == true) {
+  if (createUserResult.status == true) {
     res.json({
-      message: "success",
+      failure: false,
     });
   } else {
     res.json({
-      message: createUserResult,
+      message: createUserResult.message,
       failure: true,
       errorType: "Internal Error",
     });
   }
 });
 
-router.post("/register", userSercices.createUser);
-
 router.get("/admin", (req, res) => {
   res.render("pages/admin");
+});
+
+router.post("/admin/hamburger", async (req, res) => {
+  const hamburgerModel = {
+    name: req.body.newHamburgerName,
+    price: req.body.newHamburgerPrice,
+    toppings: req.body.newHamburgerToppings,
+  };
+  var createHamburgerResult = await hamburgerSercices.createNewHamburger(
+    hamburgerModel
+  );
+  if (createHamburgerResult == true) {
+    res.redirect("/admin");
+  } else {
+    res.json({
+      message: createHamburgerResult,
+      failure: true,
+      errorType: "Internal Error",
+    });
+  }
 });
 
 router.get("/", (req, res) => {

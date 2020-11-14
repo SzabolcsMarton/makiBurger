@@ -16,6 +16,9 @@ class User {
     this.address = address;
   }
 }
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -52,47 +55,30 @@ form.addEventListener("submit", (e) => {
       passWord2.value,
       address.value
     );
-
     saveUser(user);
     errorMessage.innerText = "";
   }
-
-  //console.log(users);
 });
 
-function emailIsValid(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function saveUser(userToSave) {
-  fetch("http://localhost:3000/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userToSave),
-  })
-    .then((res) => {
-      console.log(res);
-      console.log("User created");
-      return res.json();
-    })
-    .then((data) => {
-      console.log(data);
-      if (data.failure) {
-        errorMessage.innerText = data.message;
-      } else {
-        window.location.href = "/login?from=registration";
-      }
-    })
-    .catch((error) => {
-      console.error(`ERROR: ${error}`);
+async function saveUser(userToSave) {
+  try {
+    let response = await fetch("http://localhost:3000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userToSave),
     });
-
-  //users.push(userToSave);
+    let data = await response.json();
+    showUserSaveResult(data);
+  } catch (err) {
+    console.log(`ERROR: ${err}`);
+  }
 }
-function isUserExist(userToCheck) {
-  let emailToFind = userToCheck.email;
-  let foundEmail = users.some((user) => user.email == emailToFind);
-  return foundEmail;
+function showUserSaveResult(data) {
+  if (data.failure == true) {
+    errorMessage.innerText = data.message;
+  } else {
+    window.location.href = "/login";
+  }
 }

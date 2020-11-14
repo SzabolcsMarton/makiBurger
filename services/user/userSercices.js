@@ -1,11 +1,15 @@
 const User = require("../../model/User");
 const bcrypt = require("bcrypt");
 const validate = require("../../helpers/validators/registrationValidation");
+const sendEmailToConfirm = require("../../helpers/emailSender");
 
 exports.createUser = async (userModel) => {
-  var validationResult = validate.validate(userModel);
+  let validationResult = validate.validate(userModel);
   if (!validationResult.success) {
-    return validationResult.message;
+    return {
+      status: false,
+      message: validationResult.message,
+    };
   }
 
   const user = new User(userModel);
@@ -15,8 +19,22 @@ exports.createUser = async (userModel) => {
     10
   ); //this should be always unique.
 
+  let isEmailExist = await User.find({ email: userModel.email });
+  if (isEmailExist.length > 0) {
+    console.log("email is in use");
+    return {
+      status: false,
+      message: "Ezzel az email cimmel már van regisztrálva felhasználó!",
+    };
+  }
   try {
-    var message = await user.save();
+    await user.save();
+    return { status: true };
+  } catch (err) {
+    // sendEmailToConfirm.mailSender(
+    //   user.email,
+    //   `http://localhost:3000/register/registrationConfirmation?code=${user.emailValidationCode}`
+    // );
 
     //send email to the user email address, and the email should have this url in it:
     //   https://{localhost:3000}/registrationConfirmation?code={user.emailValidationCode}
@@ -29,9 +47,6 @@ exports.createUser = async (userModel) => {
     // the login page should check the emailValidationCode for the current user, and if it has any value,
     //    the system should not let the user in. It may notify the user the she should check her email and click on the validation link in it
     // if it does not have value, the user allowed to log in.
-
-    return true;
-  } catch (err) {
     return err;
   }
 };

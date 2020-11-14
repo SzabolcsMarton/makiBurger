@@ -7,32 +7,48 @@
     <header><%- include('../partials/header'); %></header>
 
     <div class="leiras">
-      <form id="newPizzaCreater">
-        <label for="newPizzaName">Pizza neve:</label>
-        <input type="text" name="newPizza" value="pizza" id="newPizzaName" />
-        <label for="newPizzaPrice">Pizza ar:</label>
+      <form
+        action="/admin/hamburger"
+        method="POST"
+        id="newHamburgerCreaterForm"
+      >
+        <span id="errorMessage"></span>
+        <label for="newHamburgeName">Hamburger neve:</label>
         <input
-          type="number"
-          name="newPizzaPrice"
-          value="123"
-          id="newPizzaPrice"
+          type="text"
+          name="newHamburgerName"
+          id="newHamburgerName"
+          required
         />
-        <label for="newPizzaDescript">Leiras:</label>
+        <label for="newHamburgerPrice">Hamburger ar:</label>
+        <input
+          type="text"
+          name="newHamburgerPrice"
+          id="newHamburgerPrice"
+          required
+        />
+        <label for="newHamburgerToppings">Feltetek:</label>
         <textarea
           type="text"
-          name="newPizzaDescription"
-          id="newPizzaDescript"
+          name="newHamburgerToppings"
+          id="newHamburgerToppings"
           rows="2"
           cols="30"
-        >
-fuydktdmhd  cjgrvgwgkvbrn ugcuwegiuwgiucg wuge 
-vhrfgwejj wfdgf
-      </textarea
-        >
-        <button id="createNewPizzaBtn" type="submit">Elkuld</button>
+          required
+        ></textarea>
+        <button id="createNewHamburgerBtn" type="submit">Elkuld</button>
+      </form>
+      <form action="/admin/hamburger/" id="adminBurgerSearch">
+        <label for="hamburgerToFind">Hamburger Neve:</label>
+        <input
+          type="text"
+          name="hamburgerToFind"
+          id="hamburgerToFind"
+          required
+        />
+        <button type="submit">Keres</button>
       </form>
     </div>
-    <script src="../../public/javascript/admin/admin.js"></script>
     <script src="/javascript/nav.js"></script>
   </body>
 </html>

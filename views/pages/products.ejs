@@ -5,56 +5,19 @@
   </head>
   <body>
     <header><%- include('../partials/header'); %></header>
-
     <main>
       <ul class="products">
+        <% hamburgers.forEach((hamburger) => { %>
         <li class="menuItem">
           <div class="menuDescription">
-            <h2>Sajtburger</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in
-              fringilla massa. Aenean libero lorem, imperdiet vitae venenatis
-              id, pulvinar nec sem. Pellentesque lacinia semper dui, at.
-            </p>
-            <span>Ar: 1200 Ft</span>
+            <h2><%= hamburger.name %></h2>
+            <p><%= hamburger.toppings %></p>
+            <span><%= hamburger.price %>- Ft.</span>
           </div>
         </li>
-        <li class="menuItem">
-          <div class="menuDescription">
-            <h2>Rofi-Burger</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in
-              fringilla massa. Aenean libero lorem, imperdiet vitae venenatis
-              id, pulvinar nec sem. Pellentesque lacinia semper dui, at.
-            </p>
-            <span>Ar: 1200 Ft</span>
-          </div>
-        </li>
-        <li class="menuItem">
-          <div class="menuDescription">
-            <h2>Vegan-Burger</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in
-              fringilla massa. Aenean libero lorem, imperdiet vitae venenatis
-              id, pulvinar nec sem. Pellentesque lacinia semper dui, at.
-            </p>
-            <span>Ar: 1200 Ft</span>
-          </div>
-        </li>
-        <li class="menuItem">
-          <div class="menuDescription">
-            <h2>Dupla-Burger</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in
-              fringilla massa. Aenean libero lorem, imperdiet vitae venenatis
-              id, pulvinar nec sem. Pellentesque lacinia semper dui, at.
-            </p>
-            <span>Ar: 1200 Ft</span>
-          </div>
-        </li>
+        <% }); %>
       </ul>
     </main>
-    <script src="/javascript/main.js"></script>
     <script src="/javascript/nav.js"></script>
   </body>
 </html>

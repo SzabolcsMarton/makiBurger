@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const HambiSchema = mongoose.Schema({
-  nev: {
+  name: {
     type: String,
     require: true,
   },
-  ar: {
+  price: {
     type: Number,
     require: true,
   },
-  leiras: {
+  toppings: {
     type: String,
     require: true,
   },
@@ -19,4 +19,4 @@ const HambiSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Hambi", HambiSchema);
+module.exports = mongoose.model("Hambis", HambiSchema);
