@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const User = require("../model/User");
 const userSercices = require("../services/user/userSercices");
 const hamburgerSercices = require("../services/hamburger/hamburgerService");
-const Hambi = require("../model/Hambi");
 
 router.get("/about", (req, res) => {
   res.render("pages/about");
@@ -56,7 +53,7 @@ router.get("/admin", (req, res) => {
 });
 
 router.post("/admin/hamburger", async (req, res) => {
-  const hamburgerModel = {
+  let hamburgerModel = {
     name: req.body.newHamburgerName,
     price: req.body.newHamburgerPrice,
     toppings: req.body.newHamburgerToppings,
@@ -73,6 +70,37 @@ router.post("/admin/hamburger", async (req, res) => {
       errorType: "Internal Error",
     });
   }
+});
+
+router.get("/admin/hamburger/:name", async (req, res) => {
+  let hamburgerName = req.params.name;
+  let foundBurger = await hamburgerSercices.getOneBurgerByName(hamburgerName);
+  console.log(foundBurger);
+  res.json(foundBurger);
+});
+
+router.delete("/admin/hamburger/:name", async (req, res) => {
+  let hamburgerName = req.params.name;
+  let deletedBurger = await hamburgerSercices.deleteOneBurgerByName(
+    hamburgerName
+  );
+  console.log(deletedBurger);
+  res.json({ message: "Burger deleted!" });
+});
+
+router.patch("/admin/hamburger/:name", async (req, res) => {
+  let name = req.params.name;
+  let hamburgerModel = {
+    name: req.body.newHamburgerName,
+    price: req.body.newHamburgerPrice,
+    toppings: req.body.newHamburgerToppings,
+  };
+  let upDateBurger = await hamburgerSercices.upDateOneBurberByName(
+    name,
+    hamburgerModel
+  );
+  console.log(upDateBurger);
+  res.json({ message: "Burger updated!" });
 });
 
 router.get("/", (req, res) => {

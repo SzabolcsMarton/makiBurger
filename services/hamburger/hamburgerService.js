@@ -3,7 +3,7 @@ const Hamburger = require("../../model/Hambi");
 exports.createNewHamburger = async (hamburgerModel) => {
   let hamburger = new Hamburger(hamburgerModel);
   try {
-    await hamburger.save();
+    let newBurger = await hamburger.save();
     return true;
   } catch (err) {
     return err;
@@ -21,8 +21,9 @@ exports.getAllBurgers = async () => {
 
 exports.getOneBurgerByName = async (name) => {
   try {
-    let foundBurger = await Hamburger.find({ name: name });
+    let foundBurger = await getBurger(name);
     if (foundBurger != null) {
+      console.log(foundBurger);
       return foundBurger;
     } else {
       return {
@@ -36,25 +37,56 @@ exports.getOneBurgerByName = async (name) => {
 
 exports.deleteOneBurgerByName = async (name) => {
   try {
-    await Hamburger.deleteOne({ name: name });
+    let foundBurger = await getBurger(name);
+    if (foundBurger != null) {
+      let deletedBurger = await Hamburger.deleteOne(foundBurger);
+      return deletedBurger;
+    } else {
+      return {
+        message: "Hamburger not found in Database!",
+      };
+    }
   } catch (err) {
     return err;
   }
 };
 
-exports.upDateOneBurberByName = async (
-  name,
-  newName,
-  newPrice,
-  newToppings
-) => {
+exports.upDateOneBurberByName = async (name, hamburgerModel) => {
   try {
-    const result = await Hamburger.updateOne(
-      { name: name },
-      { name: newName, price: newPrice, toppings: newToppings }
-    );
-    return res.nModified;
+    let burger = await getBurger(name);
+    if (burger != null) {
+      if (hamburgerModel.name != null) {
+        burger.name = hamburgerModel.name;
+      }
+      if (hamburgerModel.price != null) {
+        burger.price = hamburgerModel.price;
+      }
+      if (hamburgerModel.toppings != null) {
+        burger.toppings = hamburgerModel.toppings;
+      }
+      //console.log(burger);
+      let upDatedBurger = await Hamburger.updateOne(
+        { name },
+        {
+          $set: {
+            name: burger.name,
+            price: burger.price,
+            toppings: burger.toppings,
+          },
+        }
+      );
+      return upDatedBurger;
+    } else {
+      return {
+        message: "Hamburger not found in Database!",
+      };
+    }
   } catch (err) {
     return err;
   }
 };
+
+async function getBurger(name) {
+  let burger = await Hamburger.findOne({ name: name });
+  return burger;
+}

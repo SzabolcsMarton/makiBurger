@@ -265,7 +265,7 @@ hr {
   display: flex;
   width: 70%;
   border: 2px solid black;
-  margin: 3px auto;
+  margin: 6px auto;
   justify-content: center;
   text-align: center;
   background-image: linear-gradient(
