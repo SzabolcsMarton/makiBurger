@@ -5,6 +5,7 @@ const sendEmailToConfirm = require("../../helpers/emailSender");
 
 exports.createUser = async (userModel) => {
   let validationResult = validate.validate(userModel);
+
   if (!validationResult.success) {
     return {
       status: false,

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const pageRoute = require("./routes/pageRoutes");
+const userRoute = require("./routes/userRoutes");
 
 //connect to database
 mongoose.connect(
@@ -17,9 +18,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //body parser
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes middleware
+app.use("/", userRoute);
 app.use("/", pageRoute);
 
 //view engine

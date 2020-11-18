@@ -39,6 +39,8 @@
         <button id="createNewHamburgerBtn" type="submit">Elkuld</button>
       </form>
       <form action="/admin/hamburger/" id="adminBurgerSearch">
+        <input type="hidden" name="name" value="asd" />
+
         <label for="hamburgerToFind">Hamburger Neve:</label>
         <input
           type="text"
@@ -46,7 +48,7 @@
           id="hamburgerToFind"
           required
         />
-        <button type="submit">Keres</button>
+        <button type="submit" name="btnSearch" value="qwe">Keres</button>
       </form>
     </div>
     <script src="/javascript/nav.js"></script>
