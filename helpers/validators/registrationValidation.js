@@ -1,22 +1,15 @@
+const validators = [
+  require("../vaidators/validators/pwdLengthValidator"),
+  require("../vaidators/validators/pwdEqualValidator"),
+];
+
 exports.validate = function validate(userModel) {
-  if (userModel.password != userModel.password2) {
-    return {
-      message: "Passwords don't match!",
-      errorType: "passworddontmatch",
-      success: false,
-    };
+  let validatorResults = [];
+  for (var i = 0; i < validators.length; i++) {
+    let validator = validators[i];
+    let validatorResult = validator.validate(userModel);
+    validatorResults.push(validatorResult);
   }
 
-  if (userModel.password.length < 6) {
-    return {
-      message: "Passwords shoud be at least 6  characters!",
-      errorType: "passwordlength",
-      control: "password",
-      success: false,
-    };
-  }
-
-  return {
-    success: true,
-  };
+  return validatorResults;
 };

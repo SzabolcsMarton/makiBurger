@@ -18,36 +18,6 @@ router.get("/orders", (req, res) => {
   res.render("pages/order");
 });
 
-router.get("/login", (req, res) => {
-  res.render("pages/login");
-});
-
-router.get("/register", (req, res) => {
-  res.render("pages/register");
-});
-
-router.post("/register", async (req, res) => {
-  var userModel = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    password2: req.body.password2,
-    address: req.body.address,
-  };
-  var createUserResult = await userSercices.createUser(userModel);
-  if (createUserResult.status == true) {
-    res.json({
-      failure: false,
-    });
-  } else {
-    res.json({
-      message: createUserResult.message,
-      failure: true,
-      errorType: "Internal Error",
-    });
-  }
-});
-
 router.get("/admin", (req, res) => {
   res.render("pages/admin");
 });
@@ -105,6 +75,10 @@ router.patch("/admin/hamburger/:name", async (req, res) => {
 
 router.get("/", (req, res) => {
   res.render("pages/index");
+});
+
+router.get("/*", (req, res) => {
+  res.render("pages/error404");
 });
 
 module.exports = router;
