@@ -1,6 +1,6 @@
 const validators = [
-  require("../vaidators/validators/pwdLengthValidator"),
-  require("../vaidators/validators/pwdEqualValidator"),
+  require("../validators/validators/pwdLengthValidator"),
+  require("../validators/validators/pwdEqualValidator"),
 ];
 
 exports.validate = function validate(userModel) {

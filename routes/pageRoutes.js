@@ -59,11 +59,12 @@ router.delete("/admin/hamburger/:name", async (req, res) => {
 });
 
 router.patch("/admin/hamburger/:name", async (req, res) => {
+  console.log(req);
   let name = req.params.name;
   let hamburgerModel = {
-    name: req.body.newHamburgerName,
-    price: req.body.newHamburgerPrice,
-    toppings: req.body.newHamburgerToppings,
+    name: req.body.name,
+    price: req.body.price,
+    toppings: req.body.toppings,
   };
   let upDateBurger = await hamburgerSercices.upDateOneBurberByName(
     name,

@@ -66,7 +66,7 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
       }
       //console.log(burger);
       let upDatedBurger = await Hamburger.updateOne(
-        { name },
+        { name: name },
         {
           $set: {
             name: burger.name,
@@ -87,6 +87,6 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
 };
 
 async function getBurger(name) {
-  let burger = await Hamburger.findOne({ name: name });
+  let burger = await Hamburger.findOne({ name });
   return burger;
 }
