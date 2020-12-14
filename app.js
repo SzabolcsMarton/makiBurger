@@ -3,9 +3,12 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const pageRoute = require("./routes/pageRoutes");
 const userRoute = require("./routes/userRoutes");
+const hamburgerRoutes = require("./routes/hamburgerRoutes");
+const emailRoutes = require("./routes/emailRoutes");
+const cors = require("cors");
+require("dotenv").config();
 
 //connect to database
 mongoose.connect(
@@ -21,9 +24,13 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(cors());
+
 //routes middleware
+app.use("/", hamburgerRoutes);
 app.use("/", userRoute);
 app.use("/", pageRoute);
+app.use("/", emailRoutes);
 
 //view engine
 app.set("view engine", "ejs");

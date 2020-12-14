@@ -2,11 +2,12 @@ const User = require("../../model/User");
 const bcrypt = require("bcrypt");
 const validate = require("../../helpers/validators/registrationValidation");
 const sendEmailToConfirm = require("../../helpers/emailSender");
+const fetch = require("node-fetch");
 
 exports.createUser = async (userModel) => {
   let validationResult = validate.validate(userModel);
 
-  if (!validationResult.success) {
+  if (!validationResult[0].success && !validationResult[1]) {
     return {
       status: false,
       message: validationResult.message,
@@ -18,7 +19,7 @@ exports.createUser = async (userModel) => {
   user.emailValidationCode = await bcrypt.hash(
     toString(Math.random() * 100),
     10
-  ); //this should be always unique.
+  );
 
   let isEmailExist = await User.find({ email: userModel.email });
   if (isEmailExist.length > 0) {
@@ -29,25 +30,45 @@ exports.createUser = async (userModel) => {
     };
   }
   try {
-    await user.save();
+    let saveResponse = await user.save();
+    let response = await fetch("http://localhost:3000/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(saveResponse),
+    });
     return { status: true };
   } catch (err) {
-    // sendEmailToConfirm.mailSender(
-    //   user.email,
-    //   `http://localhost:3000/register/registrationConfirmation?code=${user.emailValidationCode}`
-    // );
-
-    //send email to the user email address, and the email should have this url in it:
-    //   https://{localhost:3000}/registrationConfirmation?code={user.emailValidationCode}
-    //
-    //The new API (registrationConfirmation) should check the code if exist in the database
-    // - fetch the User from the database with the same code so you will have the User objectum
-    // - clear the registrationConfirmation for the User and save it back to the Database
-    // - and redirect the user to login page
-
-    // the login page should check the emailValidationCode for the current user, and if it has any value,
-    //    the system should not let the user in. It may notify the user the she should check her email and click on the validation link in it
-    // if it does not have value, the user allowed to log in.
     return err;
+  }
+};
+
+// the login page should check the emailValidationCode for the current user, and if it has any value,
+//    the system should not let the user in. It may notify the user the she should check her email and click on the validation link in it
+// if it does not have value, the user allowed to log in.
+
+exports.userLogin = async (body) => {
+  let users = await User.find();
+  let user = users.find((user) => user.email === body.email);
+  if (user == null) {
+    return { message: "Cannot find user" };
+  }
+  try {
+    if (await bcrypt.compare(body.password, user.password)) {
+      if (user.emailValidationCode == "") {
+        return { success: true };
+      } else {
+        return {
+          success: false,
+          message:
+            "please check your email account and verify your email address",
+        };
+      }
+    } else {
+      return { success: false };
+    }
+  } catch {
+    res.status(500).send();
   }
 };

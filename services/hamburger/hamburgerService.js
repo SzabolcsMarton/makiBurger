@@ -55,7 +55,7 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
   try {
     let burger = await getBurger(name);
     if (burger != null) {
-      if (hamburgerModel.name != null) {
+      if (hamburgerModel.name != undefined) {
         burger.name = hamburgerModel.name;
       }
       if (hamburgerModel.price != null) {
@@ -64,7 +64,7 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
       if (hamburgerModel.toppings != null) {
         burger.toppings = hamburgerModel.toppings;
       }
-      //console.log(burger);
+      console.log(burger);
       let upDatedBurger = await Hamburger.updateOne(
         { name: name },
         {
@@ -87,6 +87,14 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
 };
 
 async function getBurger(name) {
-  let burger = await Hamburger.findOne({ name });
+  let burger = await Hamburger.findOne({ name: name });
+  // const query = Hamburger.where({ name: name });
+  // query.findOne(function (err, burger) {
+  //   if (err) return console.log(err);
+  //   if (burger) {
+
+  //   }
+  // });
+  //console.log(burger);
   return burger;
 }

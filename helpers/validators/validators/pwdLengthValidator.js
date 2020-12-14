@@ -7,4 +7,5 @@ exports.validate = function validate(userModel) {
       success: false,
     };
   }
+  return { success: true };
 };
