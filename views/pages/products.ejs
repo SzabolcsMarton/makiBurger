@@ -10,8 +10,10 @@
         <% hamburgers.forEach((hamburger) => { %>
         <li class="menuItem">
           <div class="menuDescription">
-            <input type="hidden" name="id" />
+            <input type="hidden" name="idForEdit" />
             <a href="/admin/hamburgers/<%= hamburger.id %>">Edit</a>
+            <input type="hidden" name="idForDelete" />
+            <a href="/admin/hamburgers/<%= hamburger.id %>">Delete</a>
             <h2><%= hamburger.name %></h2>
             <p><%= hamburger.toppings %></p>
             <span><%= hamburger.price %>- Ft.</span>

@@ -43,6 +43,12 @@ router.get("/admin/hamburger/:name", async (req, res) => {
   res.json(foundBurger);
 });
 
+router.get("/admin/hamburgers/:id", async (req, res) => {
+  let foundBurger = await hamburgerSercices.getOneBurgerById(req.params.id);
+  //console.log(foundBurger);
+  res.json(foundBurger);
+});
+
 router.delete("/admin/hamburger/:name", async (req, res) => {
   let hamburgerName = req.params.name;
   let deletedBurger = await hamburgerSercices.deleteOneBurgerByName(

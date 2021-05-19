@@ -44,10 +44,6 @@ exports.createUser = async (userModel) => {
   }
 };
 
-// the login page should check the emailValidationCode for the current user, and if it has any value,
-//    the system should not let the user in. It may notify the user the she should check her email and click on the validation link in it
-// if it does not have value, the user allowed to log in.
-
 exports.userLogin = async (body) => {
   let users = await User.find();
   let user = users.find((user) => user.email === body.email);

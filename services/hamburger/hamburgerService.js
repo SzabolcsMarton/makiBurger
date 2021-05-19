@@ -23,7 +23,7 @@ exports.getOneBurgerByName = async (name) => {
   try {
     let foundBurger = await getBurger(name);
     if (foundBurger != null) {
-      console.log(foundBurger);
+      //console.log(foundBurger);
       return foundBurger;
     } else {
       return {
@@ -64,7 +64,7 @@ exports.upDateOneBurberByName = async (name, hamburgerModel) => {
       if (hamburgerModel.toppings != null) {
         burger.toppings = hamburgerModel.toppings;
       }
-      console.log(burger);
+      //console.log(burger);
       let upDatedBurger = await Hamburger.updateOne(
         { name: name },
         {
@@ -98,3 +98,13 @@ async function getBurger(name) {
   //console.log(burger);
   return burger;
 }
+
+function getOneBurger(id) {
+  let fburger = Hamburger.findById(id);
+  return fburger;
+}
+
+exports.getOneBurgerById = async (id) => {
+  let burgerById = await getOneBurger(id);
+  console.log(burgerById);
+};

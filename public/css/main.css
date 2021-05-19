@@ -382,3 +382,31 @@ select {
     margin-top: 170px;
   }
 }
+#hamburgerToFind,
+#newHamburgerCreaterForm label,
+#newHamburgerToppings,
+#hambSearchBtn {
+  display: block;
+  margin: 5px auto;
+}
+#newHamburgerCreaterForm,
+#adminBurgerSearch {
+  font-size: 1.3rem;
+}
+#hambSearchBtn,
+#createNewHamburgerBtn {
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+#newHamburgerCreaterForm input,
+#newHamburgerCreaterForm textarea,
+#hamburgerToFind {
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1.3rem;
+}
+#newHamburgerCreaterForm,
+#hamburgerToFind {
+  overflow: hidden;
+}
