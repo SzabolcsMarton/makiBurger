@@ -16,7 +16,7 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log("Db connected")
 );
-//set up public public folder for static files
+//set up public folder for static files
 app.use(express.static(path.join(__dirname, "public")));
 
 //body parser

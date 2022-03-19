@@ -6,6 +6,7 @@ const registrationConfirmation = require("./../services/user/registrationConfirm
 router.get("/login", (req, res) => {
   res.render("pages/login");
 });
+
 router.post("/login", async (req, res) => {
   let isLogedIn = await userServices.userLogin(req.body);
   console.log(isLogedIn);
